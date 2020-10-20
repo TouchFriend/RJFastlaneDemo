@@ -1,0 +1,46 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "打包上传到蒲公英"
+  lane :development_upload_pgyer_lane do
+  	appName = "RJFastlaneDemo"
+    time = Time.new.strftime("%Y-%m-%d %H-%M-%S") 	# 获取时间格式
+    version = get_version_number	#获取版本号
+    ipaName = "#{appName}_Debug_#{version}_#{time}.ipa" 		# eg: RJFastlaneDemo_Debug_1.0_2020-10-20 15-11-30
+
+    # add actions here: https://docs.fastlane.tools/actions
+    # 打包, gym是build_app的别名
+    gym(
+    	scheme: "RJFastlaneDemo",   		# 项目名称
+    	configuration: "Debug",				# 模式，默认Release，还有Debug
+    	export_method: "development",		# 打包的类型
+    	silent: true,  						# 隐藏没有必要的信息
+        clean: true,  						# 在构建前先clean
+		output_name:"#{ipaName}",			# 输出的包名
+        output_directory: "../App",			# 输出包的位置
+    )
+
+    # 上传蒲公英
+    pgyer(api_key: "647f5d8f8bb1a92c4a80504fcc494fa3", 
+          user_key: "4c415c41d0dd9bc082495ffead78e2c9", 
+          update_description: "update by fastlane",			# 版本更新描述
+          password: "123456",								# 设置安装密码
+          install_type: "2",
+    )
+  end
+end
