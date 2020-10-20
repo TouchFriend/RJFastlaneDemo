@@ -17,7 +17,7 @@ default_platform(:ios)
 
 platform :ios do
   desc "打包上传到蒲公英"
-  lane :development_upload_pgyer_lane do
+  lane :dev_upload_pgyer_lane do
   	appName = "RJFastlaneDemo"
     time = Time.new.strftime("%Y-%m-%d %H-%M-%S") 	# 获取时间格式
     version = get_version_number	#获取版本号

@@ -16,9 +16,9 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios development_upload_pgyer_lane
+### ios dev_upload_pgyer_lane
 ```
-fastlane ios development_upload_pgyer_lane
+fastlane ios dev_upload_pgyer_lane
 ```
 打包上传到蒲公英
 
